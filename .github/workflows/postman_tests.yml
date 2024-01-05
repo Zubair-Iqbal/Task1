@@ -8,19 +8,18 @@ jobs:
       matrix: 
           nodes: [16,18]
   
-  steps:
+    steps:
   
-  - name: Check out Git repository
-    uses: actions/checkout@v4
+    - name: Check out Git repository
+      uses: actions/checkout@v4
 
-  - name: Set up Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: ${{matrix.nodes}}
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{matrix.nodes}}
 
-  - name: Install newman
-    run: npm install -g newman
+    - name: Install newman
+      run: npm install -g newman
 
-  - name: Run the API and Postman's tests
-    run: newman run SQA-Exam/Books.postman_collection.json -e test.postman_environment 
-  
+    - name: Run the API and Postman's tests
+      run: newman run SQA-Exam/Books.postman_collection.json -e test.postman_environment 
