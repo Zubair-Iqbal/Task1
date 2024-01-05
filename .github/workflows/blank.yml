@@ -1,0 +1,29 @@
+name: postman-push
+on: [push] 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+          nodes: [16,18]
+  
+  steps:
+  - name: Check out Git repository
+    uses: actions/checkout@v1
+
+  - name: Set up Node.js
+    uses: actions/setup-node@v1
+    with:
+      node-version: ${{matrix.nodes}}
+      registry-url: https://registry.npmjs.org/
+ 
+  - name: Install dependencies
+    run: npm install
+
+  - name: Install newman
+    run: npm install -g newman
+
+  - name: Run the API and Postman's tests
+    run: newman run SQA-Exam/Books.postman_collection.json -e test.postman_environment 
+  
